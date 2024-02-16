@@ -21,8 +21,8 @@
     <aside>
         <!-- Sidebar -->
         <h2>Sidebar</h2>
-        <ul>
-            <li><a href="#">Item 1</a></li>
+        <ul class="left menu">
+            <li><a href="#">String revert</a></li>
             <li><a href="#">Item 2</a></li>
             <li><a href="#">Item 3</a></li>
         </ul>
@@ -30,8 +30,7 @@
 
     <main>
         <!-- Main Content -->
-        <h1>Page Title</h1>
-        <p>This is an example page using HTML5. It contains the main content of the page.</p>
+        <div id="mainContent"></div>
     </main>
 </div>
 
@@ -39,6 +38,28 @@
     <!-- Footer -->
     <p>&copy; 2024 Liron</p>
 </footer>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.left.menu a').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const scriptName = this.textContent.trim().replace(/\s+/g, ' ') + '.js';
+                const scriptPath = 'pages/' + encodeURIComponent(scriptName);
+                let script = document.createElement('script');
+                script.src = scriptPath;
+                script.onload = function() {
+                    console.log(scriptPath + ' loaded successfully.');
+                };
+                script.onerror = function() {
+                    console.error('Failed to load script ' + scriptPath + '.');
+                };
+                document.body.appendChild(script);
+            });
+        });
+    });
+</script>
 
 
 </body>
